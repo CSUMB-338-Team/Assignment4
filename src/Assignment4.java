@@ -178,17 +178,20 @@ class DataMatrix implements BarcodeIO
    
    public DataMatrix()
    {
-      
+      this.text = "";
+      this.image = new BarcodeImage();
    }
    
    public DataMatrix(BarcodeImage image)
    {
-      
+      this.image = image;
+      scan(this.image);
    }
    
    public DataMatrix(String text)
    {
-      
+      this.text = text;
+      readText(this.text);
    }
    
    @Override
