@@ -27,7 +27,7 @@ interface BarcodeIO
    /*
     * scan accepts a BarcodeImage object, bc, and stores a copy 
     */
-   public boolean scan (BarcodeImage bc);
+   public boolean scan(BarcodeImage bc);
    
    /*
     * readText accepts a String object, text, to be encoded
@@ -53,6 +53,7 @@ interface BarcodeIO
     * displayImageToConsole prints an image to the console
     */
    public void displayImageToConsole();
+   
 }//END interface BarcodeIO
 
 
