@@ -147,6 +147,18 @@ class BarcodeImage implements Cloneable
       }
    }
    
+   // to be built
+   private boolean checkSize(String[] data)
+   {
+      return false;
+   }
+   
+   // to be built
+   public void displayToConsole()
+   {
+      
+   }
+   
 } //END class BarcodeImage
 
 
@@ -154,8 +166,101 @@ class BarcodeImage implements Cloneable
 /*------------------------------------------------------
  * DataMatrix
  *---------------------------------------------------- */
-class DataMatrix
+class DataMatrix implements BarcodeIO
 {
    
+   public static final char BLACK_CHAR = '*';
+   public static final char WHITE_CHAR = ' ';
+   private BarcodeImage image;
+   private String text;
+   private int actualWidth;
+   private int actualHeight;
+   
+   public DataMatrix()
+   {
+      
+   }
+   
+   public DataMatrix(BarcodeImage image)
+   {
+      
+   }
+   
+   public DataMatrix(String text)
+   {
+      
+   }
+   
+   @Override
+   public boolean scan(BarcodeImage bc)
+   {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean readText(String text)
+   {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean generateImageFromText()
+   {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean translateImageToText()
+   {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public void displayTextToConsole()
+   {
+      // TODO Auto-generated method stub
+      
+   }
+
+   @Override
+   public void displayImageToConsole()
+   {
+      // TODO Auto-generated method stub
+      
+   }
+  
+   public void displayRawImage()
+   {
+      
+   }
+   
+   public int getActualHeight()
+   {
+      return 0;
+   }
+   
+   public int getActualWidth()
+   {
+      return 0;
+   }
+   
+   private int computeSignalWidth()
+   {
+      return 0;
+   }
+   
+   private void cleanImage()
+   {
+      
+   }
+   
+   private void clearImage()
+   {
+      
+   }
 
 } //END class DataMatrix
