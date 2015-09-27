@@ -132,7 +132,7 @@ public class BarcodeImage implements Cloneable
             if(image_data[i][j])
                System.out.print('*');
             else
-               System.out.print('.');
+               System.out.print('-');
          }
          System.out.print("\n");
       }

@@ -102,7 +102,17 @@ public class DataMatrix implements BarcodeIO
   
    public void displayRawImage()
    {
-      
+      for (int i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
+      {
+         for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(image.getPixel(i, j))
+               System.out.print(BLACK_CHAR);
+            else
+               System.out.print('-');
+         }
+         System.out.println();
+      }
    }
    
    public int getActualHeight()
