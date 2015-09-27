@@ -1,3 +1,4 @@
+
 /*------------------------------------------------------
  * BarcodeImage
  *---------------------------------------------------- */
@@ -26,21 +27,33 @@ public class BarcodeImage implements Cloneable
     */
    public BarcodeImage(String[] str_data)
    {
-      if(str_data.length > MAX_HEIGHT || str_data[0].length() > MAX_WIDTH
-            || str_data == null)
-      {
-         
-      }
+      
+      if(checkSize(str_data))
+         // do somehting if true here.
       
       this.image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
-      for (int i = MAX_HEIGHT - 1; i == 0; i--)
+      int strIndex = str_data.length - 1;
+      
+      for (int i = MAX_HEIGHT - 1; i >= 0; i--)
       {
          for (int j = 0; j < MAX_WIDTH; j++)
          {
-            if (str_data[i].charAt(j) == '*')
-               setPixel(i, j, true);
-            else setPixel(i, j, false);
+            
+            if(strIndex >= 0 && j < str_data[strIndex].length())
+            {
+               
+               if(str_data[strIndex].charAt(j) == ' ')
+                  setPixel(i, j, false);
+               else 
+                  setPixel(i, j, true);
+               
+            }else
+            {
+               setPixel(i, j, false);
+            }
+            
          }
+         strIndex--;
       }
    }
    
@@ -50,16 +63,12 @@ public class BarcodeImage implements Cloneable
     */
    public boolean setPixel(int row, int col, boolean value)
    {
-      if (isValid(row, col) && value == true)
+      if(isValid(row, col))
       {
          this.image_data[row][col] = value;
          return true;
       }
-      else if (isValid(row, col) && value == false)
-      {
-         this.image_data[row][col] = false;
-         return true;
-      }
+
       return false;
    }
    
@@ -81,7 +90,8 @@ public class BarcodeImage implements Cloneable
     */
    private boolean isValid(int row, int col)
    {
-      return (row < MAX_WIDTH && col < MAX_HEIGHT);
+      return (( row >= 0 && row < MAX_HEIGHT) && 
+            (col >= 0 && col < MAX_WIDTH));
    }
    
    public Object clone()
@@ -98,16 +108,34 @@ public class BarcodeImage implements Cloneable
       }
    }
    
-   // to be built
    private boolean checkSize(String[] data)
    {
-      return false;
+      if(data == null || data.length > MAX_HEIGHT)
+         return false;
+      
+      for(String d: data)
+      {
+         if(d == null || d.length() > MAX_WIDTH)
+            return false;
+      }
+      
+      return true;
    }
    
-   // to be built
+   // only used for debugging
    public void displayToConsole()
    {
-      
+      for (int i = 0; i < MAX_HEIGHT; i++)
+      {
+         for (int j = 0; j < MAX_WIDTH; j++)
+         {
+            if(image_data[i][j])
+               System.out.print('*');
+            else
+               System.out.print('.');
+         }
+         System.out.print("\n");
+      }
    }
    
 } //END class BarcodeImage

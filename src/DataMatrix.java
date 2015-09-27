@@ -33,8 +33,22 @@ public class DataMatrix implements BarcodeIO
    @Override
    public boolean scan(BarcodeImage bc)
    {
-      // TODO Auto-generated method stub
-      return false;
+      try
+      {
+         
+         image = (BarcodeImage) bc.clone();
+         cleanImage();
+         actualWidth = computeSignalWidth();
+         actualHeight = computeSignalHeight();
+         
+      } catch (Exception e)
+      {
+         
+         return false;
+         
+      }
+
+      return true;
    }
 
    @Override
@@ -71,7 +85,18 @@ public class DataMatrix implements BarcodeIO
    @Override
    public void displayImageToConsole()
    {
-      // TODO Auto-generated method stub
+      for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 
+            (BarcodeImage.MAX_HEIGHT - actualHeight); i--)
+      {        
+         for (int j = 0; j < actualWidth; j++)
+         {
+            if(image.getPixel(i, j))
+               System.out.print(BLACK_CHAR);
+            else
+               System.out.print(WHITE_CHAR);
+         }
+         System.out.println();
+      }
       
    }
   
@@ -92,17 +117,101 @@ public class DataMatrix implements BarcodeIO
    
    private int computeSignalWidth()
    {
-      return 0;
+      int count = 0;
+      
+      for(int i = 0; i < BarcodeImage.MAX_WIDTH; i++)
+      {
+         if(image.getPixel(BarcodeImage.MAX_HEIGHT - 1, i))
+            count++;
+      }
+      
+      return count;
+   }
+   
+   private int computeSignalHeight()
+   {
+      int count = 0;
+      
+      for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 0; i--)
+      {
+         if(image.getPixel(i, 0))
+            count++;
+      }
+      
+      return count;
    }
    
    private void cleanImage()
    {
+      moveImageToLowerLeft();
+   }
+   
+   private void moveImageToLowerLeft()
+   {
+      boolean foundBottmLeft = false;
       
+      for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 0; i--)
+      {
+         if(foundBottmLeft)
+            break;
+         
+         for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(image.getPixel(i, j))
+            {
+               shiftImageDown((BarcodeImage.MAX_HEIGHT -1) - i);
+               shiftImageLeft(j);
+               foundBottmLeft = true;
+               break;
+            }
+         }
+      }
+
+   }
+   
+   private void shiftImageDown(int offset)
+   {
+      for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 0; i--)
+      {  
+         if(i - offset <= 0)
+            return;
+            
+         for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(image.getPixel(i - offset, j))
+               image.setPixel(i, j, true);
+            else
+               image.setPixel(i, j, false);
+         }
+      }
+   }
+   
+   private void shiftImageLeft(int offset)
+   {
+      for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 0; i--)
+      {        
+         for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(j + offset > BarcodeImage.MAX_WIDTH)
+               break;
+            
+            if(image.getPixel(i, j + offset))
+               image.setPixel(i, j, true);
+            else
+               image.setPixel(i, j, false);
+         }
+      }
    }
    
    private void clearImage()
    {
-      
+      for(int i = actualHeight - 1; i >= 0; i--)
+      {        
+         for (int j = 0; j < actualWidth; j++)
+         {
+            image.setPixel(i, j, false);
+         }
+      }
    }
 
 } //END class DataMatrix

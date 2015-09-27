@@ -11,7 +11,34 @@ public class Assignment4
 
    public static void main(String[] args)
    {
-      // TODO Auto-generated method stub
+      
+      // BarcodeImage test
+      String[] sImageIn =
+         {
+            "                                               ",
+            "                                               ",
+            "                                               ",
+            "     * * * * * * * * * * * * * * * * * * * * * ",
+            "     *                                       * ",
+            "     ****** **** ****** ******* ** *** *****   ",
+            "     *     *    ****************************** ",
+            "     * **    * *        **  *    * * *   *     ",
+            "     *   *    *  *****    *   * *   *  **  *** ",
+            "     *  **     * *** **   **  *    **  ***  *  ",
+            "     ***  * **   **  *   ****    *  *  ** * ** ",
+            "     *****  ***  *  * *   ** ** **  *   * *    ",
+            "     ***************************************** ",  
+            "                                               ",
+            "                                               ",
+            "                                               "
+
+         }; 
+      
+      BarcodeImage bc = new BarcodeImage(sImageIn);
+      //for reference
+      bc.displayToConsole();
+      DataMatrix dm = new DataMatrix(bc);
+      dm.displayImageToConsole();
 
    }
 
