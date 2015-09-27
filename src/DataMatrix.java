@@ -205,9 +205,9 @@ public class DataMatrix implements BarcodeIO
    
    private void clearImage()
    {
-      for(int i = actualHeight - 1; i >= 0; i--)
+      for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 0; i--)
       {        
-         for (int j = 0; j < actualWidth; j++)
+         for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
          {
             image.setPixel(i, j, false);
          }
