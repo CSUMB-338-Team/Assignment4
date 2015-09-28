@@ -81,17 +81,22 @@ public class DataMatrix implements BarcodeIO
    @Override
    public void displayTextToConsole()
    {
-      // TODO Auto-generated method stub
+      
+      System.out.println(text);
       
    }
 
    @Override
    public void displayImageToConsole()
    {
-      for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 
-            (BarcodeImage.MAX_HEIGHT - actualHeight); i--)
+      int height, width;
+      height = actualHeight + 2; // +2 to include spine
+      width = actualWidth + 2; // +2 to include spine
+      
+      for(int i = BarcodeImage.MAX_HEIGHT - height; 
+            i < BarcodeImage.MAX_HEIGHT; i++)
       {        
-         for (int j = 0; j < actualWidth; j++)
+         for (int j = 0; j < width; j++)
          {
             if(image.getPixel(i, j))
                System.out.print(BLACK_CHAR);
@@ -112,7 +117,7 @@ public class DataMatrix implements BarcodeIO
             if(image.getPixel(i, j))
                System.out.print(BLACK_CHAR);
             else
-               System.out.print('-');
+               System.out.print('-'); // displaying a - for easy debugging
          }
          System.out.println();
       }
@@ -138,7 +143,8 @@ public class DataMatrix implements BarcodeIO
             count++;
       }
       
-      return count;
+      // return the count - 2 to remove the spines
+      return (count == 0) ? 0 : count - 2;
    }
    
    private int computeSignalHeight()
@@ -151,7 +157,8 @@ public class DataMatrix implements BarcodeIO
             count++;
       }
       
-      return count;
+      // return the count - 2 to remove the spines
+      return (count == 0) ? 0 : count - 2;
    }
    
    private void cleanImage()
@@ -184,9 +191,13 @@ public class DataMatrix implements BarcodeIO
    
    private void shiftImageDown(int offset)
    {
+      
+      if(offset == 0)
+         return;
+      
       for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 0; i--)
       {  
-         if(i - offset <= 0)
+         if(i - offset < 0)
             return;
             
          for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
@@ -201,6 +212,10 @@ public class DataMatrix implements BarcodeIO
    
    private void shiftImageLeft(int offset)
    {
+      
+      if(offset == 0)
+         return;
+      
       for(int i = BarcodeImage.MAX_HEIGHT - 1; i >= 0; i--)
       {        
          for (int j = 0; j < BarcodeImage.MAX_WIDTH; j++)
