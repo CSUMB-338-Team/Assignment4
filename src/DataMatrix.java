@@ -226,14 +226,15 @@ public class DataMatrix implements BarcodeIO
    
    private char readCharFromCol(int col)
    {
-      int valueAt = 0;
-      int power = 0;
+        int valueAt = 0;
+     int power = 0;
      
-      for (int i = 0; i < actualHeight; i++)
-         if (image.getPixel(i, col))
-            valueAt += Math.pow(2, power);
+     for (int i = BarcodeImage.MAX_HEIGHT - 2; i >= 0; i--, power++)
+        if (image.getPixel(i, col))
+           valueAt += Math.pow(2, power);
      
-      return (char) valueAt;
+     return (char) valueAt;
+     
     }
 
 } //END class DataMatrix
