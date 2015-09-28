@@ -15,10 +15,7 @@ public class BarcodeImage implements Cloneable
    public BarcodeImage()
    {
       this.image_data = new boolean [MAX_HEIGHT][MAX_WIDTH];
-      
-      for (int i = 0; i < MAX_HEIGHT; i++)
-         for (int j = 0; j < MAX_WIDTH; j++)
-            this.image_data[i][j] = false;
+      generateBlankImahe();
    }
    
    /*
@@ -28,11 +25,14 @@ public class BarcodeImage implements Cloneable
    public BarcodeImage(String[] str_data)
    {
       
-      if(checkSize(str_data))
-         // do somehting if true here.
-      
       this.image_data = new boolean[MAX_HEIGHT][MAX_WIDTH];
-      int strIndex = str_data.length - 1;
+	  int strIndex = str_data.length - 1;
+	      
+      if(!checkSize(str_data))
+      {
+         generateBlankImahe();
+         return;
+      }
       
       for (int i = MAX_HEIGHT - 1; i >= 0; i--)
       {
@@ -63,7 +63,7 @@ public class BarcodeImage implements Cloneable
     */
    public boolean setPixel(int row, int col, boolean value)
    {
-      if(col < MAX_WIDTH && row < MAX_HEIGHT)
+	  if (isValid(row, col))
       {
          this.image_data[row][col] = value;
          return true;
@@ -78,12 +78,17 @@ public class BarcodeImage implements Cloneable
     */
    public boolean getPixel(int row, int col)
    {
-      if (row < MAX_WIDTH && col < MAX_HEIGHT)
+      if (isValid(row, col))
          return this.image_data[row][col];
       
       return false;
    }
    
+   private boolean isValid(int row, int col)
+   {
+      return (( row >= 0 && row < MAX_HEIGHT) && 
+            (col >= 0 && col < MAX_WIDTH));
+   }
    
    public Object clone()
    {
@@ -127,6 +132,13 @@ public class BarcodeImage implements Cloneable
          }
          System.out.print("\n");
       }
+   }
+   
+   private void generateBlankImahe()
+   {
+      for (int i = 0; i < MAX_HEIGHT; i++)
+         for (int j = 0; j < MAX_WIDTH; j++)
+	        this.image_data[i][j] = false;
    }
    
 }  //END class BarcodeImage
