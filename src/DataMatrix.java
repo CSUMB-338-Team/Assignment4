@@ -247,12 +247,16 @@ public class DataMatrix implements BarcodeIO
       int valueAt = 0;
       int power = 0;
       
-      for (int i = BarcodeImage.MAX_HEIGHT - 2; i >= 0; i--, power++)
+      for (int i = BarcodeImage.MAX_HEIGHT -2; i > actualHeight-2; i--, power++)
+      {
          if (image.getPixel(i, col))
-            valueAt += Math.pow(2, power);
-     
+            {valueAt += Math.pow(2,  power);
+             System.out.println(valueAt);}
+         System.out.println(image.getPixel(i , col));
+      }
+      if(col % 2 == 0)
+         valueAt -= 256;
       return (char) valueAt;
-     
-    }
+   }
 
 } //END class DataMatrix
