@@ -15,7 +15,7 @@ public class BarcodeImage implements Cloneable
    public BarcodeImage()
    {
       this.image_data = new boolean [MAX_HEIGHT][MAX_WIDTH];
-      generateBlankImahe();
+      generateBlankImage();
    }
    
    /*
@@ -30,7 +30,7 @@ public class BarcodeImage implements Cloneable
 	      
       if(!checkSize(str_data))
       {
-         generateBlankImahe();
+         generateBlankImage();
          return;
       }
       
@@ -134,7 +134,7 @@ public class BarcodeImage implements Cloneable
       }
    }
    
-   private void generateBlankImahe()
+   private void generateBlankImage()
    {
       for (int i = 0; i < MAX_HEIGHT; i++)
          for (int j = 0; j < MAX_WIDTH; j++)
