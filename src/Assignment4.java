@@ -9,7 +9,7 @@
 public class Assignment4
 {
 
-   public static void main(String[] args)
+ public static void main(String[] args)
    {
       
       // BarcodeImage test
@@ -34,7 +34,28 @@ public class Assignment4
 
          }; 
       
+      String[] sImageIn2 =
+      {
+         "                                          ",
+         "                                          ",
+         "* * * * * * * * * * * * * * * * * * *     ",
+         "*                                    *    ",
+         "**** *** **   ***** ****   *********      ",
+         "* ************ ************ **********    ",
+         "** *      *    *  * * *         * *       ",
+         "***   *  *           * **    *      **    ",
+         "* ** * *  *   * * * **  *   ***   ***     ",
+         "* *           **    *****  *   **   **    ",
+         "****  *  * *  * **  ** *   ** *  * *      ",
+         "**************************************    ",
+         "                                          ",
+         "                                          ",
+         "                                          ",
+         "                                          "
+      };
+      
       BarcodeImage bc = new BarcodeImage(sImageIn);
+
       //for reference
       System.out.println("Reference of orig image");
       bc.displayToConsole();
@@ -42,14 +63,34 @@ public class Assignment4
       
       DataMatrix dm = new DataMatrix(bc);
       
-      System.out.println("Reference of Full image");
-      dm.displayRawImage();
-      System.out.println();
-      
-      System.out.println("Cleaned image");
+      System.out.println("First message:");
+      dm.translateImageToText();
+      dm.displayTextToConsole();
       dm.displayImageToConsole();
       System.out.println();
-
+      
+      bc = new BarcodeImage(sImageIn2);
+      dm.scan(bc);
+      System.out.println("Second message:");
+      dm.translateImageToText();
+      dm.displayTextToConsole();
+      dm.displayImageToConsole();
+      System.out.println();
+      
+      System.out.println("Create your own message:");
+      dm.readText("Testing");
+      dm.generateImageFromText();
+      dm.displayTextToConsole();
+      dm.displayImageToConsole();
+      
+      
+      //System.out.println("Reference of Full image");
+      //dm.displayRawImage();
+      //System.out.println();
+      
+      //System.out.println("Cleaned image");
+      //dm.displayImageToConsole();
+      //System.out.println();
    }
 
 }
