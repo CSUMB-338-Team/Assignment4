@@ -1,8 +1,7 @@
-
 /*------------------------------------------------------
  * DataMatrix
  *---------------------------------------------------- */
-public class DataMatrix implements BarcodeIO
+class DataMatrix implements BarcodeIO
 {
    
    public static final char BLACK_CHAR = '*';
@@ -83,10 +82,12 @@ public class DataMatrix implements BarcodeIO
    @Override
    public boolean translateImageToText()
    {
+      text = "";
       if (image == null)
          return false;
       for (int i = 1; i <= actualWidth; i++)
          text += readCharFromCol(i);
+      
       return true;   
    }
 
@@ -259,17 +260,17 @@ public class DataMatrix implements BarcodeIO
       int valueAt = 0;
       int power = 0;
       
-      for (int i = BarcodeImage.MAX_HEIGHT -2; i > actualHeight-2; i--, power++)
-      {
+      for (int i = BarcodeImage.MAX_HEIGHT - 2; 
+            i > actualHeight-2; i--, power++)
          if (image.getPixel(i, col))
-            {valueAt += Math.pow(2,  power);
-      }
+            valueAt += Math.pow(2,  power);
+           
       if(col % 2 == 0)
          valueAt -= 256;
       return (char) valueAt;
    }
-   
-      private boolean writeCharToCol(int col, int code)
+  
+   private boolean writeCharToCol(int col, int code)
    {
       String str = Integer.toBinaryString(code);
       for (int i = 0; i < str.length(); i++)
@@ -279,5 +280,5 @@ public class DataMatrix implements BarcodeIO
             image.setPixel(i + 1, col, false);
       return true;      
    }
-
-} //END class DataMatrix
+   
+}//END class DataMatrix
