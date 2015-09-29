@@ -64,8 +64,20 @@ public class DataMatrix implements BarcodeIO
    @Override
    public boolean generateImageFromText()
    {
-      // TODO Auto-generated method stub
-      return false;
+      if (image == null)
+         image = new BarcodeImage();
+      else
+         clearImage();
+      
+      if (text == null || text.length() > BarcodeImage.MAX_WIDTH)
+         return false;
+      
+      for (int i = 0; i < text.length(); i++)
+      {
+         writeCharToCol(i, (int)text.charAt(i));
+      }
+      
+      return true;
    }
 
    @Override
@@ -251,12 +263,21 @@ public class DataMatrix implements BarcodeIO
       {
          if (image.getPixel(i, col))
             {valueAt += Math.pow(2,  power);
-             System.out.println(valueAt);}
-         System.out.println(image.getPixel(i , col));
       }
       if(col % 2 == 0)
          valueAt -= 256;
       return (char) valueAt;
+   }
+   
+      private boolean writeCharToCol(int col, int code)
+   {
+      String str = Integer.toBinaryString(code);
+      for (int i = 0; i < str.length(); i++)
+         if (str.charAt(i) == '1')
+            image.setPixel(i + 1, col, true);
+         else
+            image.setPixel(i + 1, col, false);
+      return true;      
    }
 
 } //END class DataMatrix
