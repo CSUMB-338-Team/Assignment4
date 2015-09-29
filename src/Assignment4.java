@@ -9,7 +9,7 @@
 public class Assignment4
 {
 
- public static void main(String[] args)
+   public static void main(String[] args)
    {
       
       // BarcodeImage test
@@ -93,4 +93,4 @@ public class Assignment4
       //System.out.println();
    }
 
-}
+}//END main
