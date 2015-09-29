@@ -6,6 +6,7 @@
 *
 * */
 
+
 public class Assignment4
 {
 
@@ -208,12 +209,20 @@ class BarcodeImage implements Cloneable
       return false;
    }
    
+   /*
+    * isValid accepts int row and col and checks against MAX_HEIGHT
+    * and MAX_WIDTH to make sure they are within bounds
+    */
    private boolean isValid(int row, int col)
    {
       return (( row >= 0 && row < MAX_HEIGHT) && 
             (col >= 0 && col < MAX_WIDTH));
    }
    
+   /*
+    * clone overides interface Cloneable method clone and returns
+    * a copy of BarcodeImage
+    */
    public Object clone()
    {
       try
@@ -228,6 +237,10 @@ class BarcodeImage implements Cloneable
       }
    }
    
+   /*
+    * checkSize accepts a string array and checks to make sure it not longer
+    * than MAX_WIDTH or taller than MAX_HEIGHT
+    */
    private boolean checkSize(String[] data)
    {
       if(data == null || data.length > MAX_HEIGHT)
@@ -258,6 +271,9 @@ class BarcodeImage implements Cloneable
       }
    }
    
+   /*
+    * generateBlankImage creates a blank barCodeImage
+    */
    private void generateBlankImage()
    {
       for (int i = 0; i < MAX_HEIGHT; i++)
@@ -288,7 +304,8 @@ class DataMatrix implements BarcodeIO
    private int actualHeight;
    
    /*
-    * Add constructor comment
+    * default constructor DataMatrix sets all variables and creates a blank
+    * BarcodeImage
     * */
    public DataMatrix()
    {
@@ -299,7 +316,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * Add constructor comment
+    * constructor DataMatrix accepts a BarcodeImage object and scans it
     * */
    public DataMatrix(BarcodeImage image)
    {
@@ -307,7 +324,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * Add constructor comment
+    * constructor DataMatrix accepts String text and sets text
     * */
    public DataMatrix(String text)
    {
@@ -315,7 +332,8 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * Scan comment
+    * scan accepts a BarcodeImage object, updates image with a clone of the 
+    * object and sets actualWidth and actualHeight
     * */
    @Override
    public boolean scan(BarcodeImage bc)
@@ -339,7 +357,7 @@ class DataMatrix implements BarcodeIO
    }
 
    /*
-    * readText comment
+    * readText accepts String text and updates this.text
     * */
    @Override
    public boolean readText(String text)
@@ -353,7 +371,7 @@ class DataMatrix implements BarcodeIO
    
    
    /*
-    * generateImageFromText comment
+    * generateImageFromText creates a barcode image from String text
     * */
    @Override
    public boolean generateImageFromText()
@@ -382,7 +400,8 @@ class DataMatrix implements BarcodeIO
    }
 
    /*
-    * translateImageToText
+    * translateImageToText reads a barcode image and updates String text
+    *  with the output
     * */
    @Override
    public boolean translateImageToText()
@@ -410,7 +429,7 @@ class DataMatrix implements BarcodeIO
    }
 
    /*
-    * displayImageToConsole
+    * displayImageToConsole displays a barcode image with all borders
     * */
    @Override
    public void displayImageToConsole()
@@ -440,7 +459,8 @@ class DataMatrix implements BarcodeIO
    }
   
    /*
-    * displayRawImage
+    * displayRawImage displays a barcode image before any cleaning or shifting
+    * takes place
     * */
    public void displayRawImage()
    {
@@ -474,7 +494,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * getActualWidth
+    * getActualWidth 
     * */
    public int getActualWidth()
    {
@@ -484,7 +504,7 @@ class DataMatrix implements BarcodeIO
    
    // private helper functions
    /*
-    * computeSignalWidth
+    * computeSignalWidth computes the actual width of an image
     * */
    private int computeSignalWidth()
    {
@@ -500,7 +520,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * computeSignalHeight
+    * computeSignalHeight calculates the actual height of an image
     * */
    private int computeSignalHeight()
    {
@@ -524,7 +544,8 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * moveImageToLowerLeft
+    * moveImageToLowerLeft uses methods shiftImageDown and shiftImage to move
+    * the barcode image to the bottom left
     * */
    private void moveImageToLowerLeft()
    {
@@ -550,7 +571,8 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * shiftImageDown
+    * shiftImageDown accepts in offset and moves the barcode image towards 
+    * the bottom
     * */
    private void shiftImageDown(int offset)
    {
@@ -573,7 +595,8 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * shiftImageLeft
+    * shiftImageLeft accepts int offset and moves the barcode image towards
+    * the left
     * */
    private void shiftImageLeft(int offset)
    {
@@ -597,7 +620,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * clearImage
+    * clearImage sets all values of image to false
     * */
    private void clearImage()
    {
@@ -611,7 +634,8 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * readCharFromCol
+    * readCharFromCol accepts int col.  Reads the values of a column from 
+    * image and converts to char
     * */
    private char readCharFromCol(int col)
    {
@@ -629,7 +653,7 @@ class DataMatrix implements BarcodeIO
    }
   
    /*
-    * generateOpenBorders
+    * generateOpenBorders generates images top and right borders
     * */
    private void generateOpenBorders()
    {
@@ -640,7 +664,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * generateTopOpenBorders
+    * generateTopOpenBorders sets image's top border
     * */
    private void generateTopOpenBorders()
    {
@@ -654,7 +678,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * generateRightOpenBorders
+    * generateRightOpenBorders sets image's right border
     * */
    private void generateRightOpenBorders()
    {
@@ -668,7 +692,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * generateLimitationLines
+    * generateLimitationLines generates both left and bottom borders
     * */
    private void generateLimitationLines()
    {
@@ -677,7 +701,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * generateBottomLimitationLines
+    * generateBottomLimitationLines sets the bottom border of image
     * */
    private void generateBottomLimitationLines()
    {
@@ -686,7 +710,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * generateLeftLimitationLines
+    * generateLeftLimitationLines sets the left border of image
     * */
    private void generateLeftLimitationLines()
    {
@@ -695,7 +719,8 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * writeCharToCol
+    * writeCharToCol accepts int col and code and sets the values of single
+    * column in image
     * */
    private boolean writeCharToCol(int col, int code)
    {
@@ -720,7 +745,7 @@ class DataMatrix implements BarcodeIO
    }
    
    /*
-    * private helper
+    * private helper accepts int start and end and prints a horizontal boarder
     * */
    private void generateHorizontalLine(int start, int end)
    {
